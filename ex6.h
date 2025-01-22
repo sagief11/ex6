@@ -1,11 +1,8 @@
 #ifndef EX6_H
 #define EX6_H
 
-#include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
+#include <stdbool.h>
 
 typedef enum
 {
@@ -195,6 +192,34 @@ PokemonNode *removePokemonByID(PokemonNode *root, int id);
 
 typedef void (*VisitNodeFunc)(PokemonNode *);
 
+
+/**
+ * @brief Go through the owners list and count how many owners there are, and print their names if needed
+ * @param: isPrintOwners if true, print the owners' names
+ * @return the amount of owners
+ * why we made it: we need to know how many owners there are
+ */
+int getOwnerAmount(bool isPrintOwners);
+
+
+/**
+ * @brief Visit PokemonNodes by level (BFS) and call visit() on each.
+ * @param root BST root
+ * @param level the level to visit
+ * @param visit function pointer
+ * Why we made it: Demonstrate BFS and function pointers.
+ */
+void visitPokemonByLevel(PokemonNode *root, int level, VisitNodeFunc visit);
+
+/**
+ * @brief Return the maximum height of the BST (farthest leaf to root).
+ * @param root BST root
+ * @return height of the tree
+ * Why we made it: We need to know how many levels to visit in BFS.
+ */
+int BFSTreeHeight(PokemonNode *root);
+
+
 /**
  * @brief Generic BFS traversal: call visit() on each node (level-order).
  * @param root BST root
@@ -277,6 +302,15 @@ void collectAll(PokemonNode *root, NodeArray *na);
  * Why we made it: Sorting by name for alphabetical display.
  */
 int compareByNameNode(const void *a, const void *b);
+
+/**
+ * @brief Compare function for qsort (alphabetical by owner->ownerName).
+ * @param a pointer to a pointer to OwnerNode
+ * @param b pointer to a pointer to OwnerNode
+ * @return -1, 0, or +1
+ * Why we made it: Sorting by name for alphabetical display.
+ */
+int compareOwnerNames(const void *a, const void *b);
 
 /**
  * @brief BFS is nice, but alphabetical means we gather all nodes, sort by name, then print.
